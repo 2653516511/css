@@ -1,0 +1,72 @@
+<!-- 
+    css: 小球弹跳
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            background: #344953;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .ball {
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(at center, #e67e2e, #e74c3c);
+            border-radius: 50%;
+            position: absolute;
+            animation-name: ball;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        .shadows {
+            width: 240px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.3);
+            position: absolute;
+            z-index: -1;
+            border-radius: 50%;
+            transform: translateY(58px);
+            /* 模糊滤镜 */
+            filter: blur(5px);
+            animation-name: shadows;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        @keyframes ball {
+            to {
+                transform: translateY(-150px);
+            }
+        }
+        @keyframes shadows {
+            to {
+                width: 240px;
+                height: 10px;
+                background: rgba(0, 0, 0, 0.1);
+                filter: blur(35px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ball">
+    </div>
+    <div class="shadows">
+
+    </div>
+    
+</body>
+</html>
