@@ -1,0 +1,91 @@
+<!-- 
+利用 window.requestAnimationFrame(callback) 来绘制画布动画:
+    requestAnimationFrame(callback) 可以在浏览器下次重绘页面时候调用已设置的回调callback
+    可以利用浏览器重绘页面的时机重绘canvas上下文，从而显示出canvas的动画效果
+    一般浏览器1s内会进行60次重绘，也就是说每次重绘的间隔时间是1000ms/60约等于16.67ms。
+    requestAnimationFrame在嵌套执行时候，正常情况下，时间间隔约为 16.77ms
+    requestAnimationFrame(callback) 回调callback在执行时候，会传入“执行回调触发时的时间戳”，类型为<DOMHeightResTimeStamp>。
+        
+    回调函数执行次数通常是每秒60次，但在大多数遵循W3C建议的浏览器中，回调函数执行次数通常与浏览器屏幕刷新次数相匹配。
+为了提高性能和电池寿命，因此在大多数浏览器里，当requestAnimationFrame() 运行在后台标签页或者隐藏的<iframe> 里时，
+requestAnimationFrame() 会被暂停调用以提升性能和电池寿命。
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>chapter</title>
+  <style>
+    canvas {
+      background-image:
+        linear-gradient(#aaaaaa40 1px, transparent 0),
+        linear-gradient(90deg, #aaaaaa40 1px, transparent 0),
+        linear-gradient(#aaa 1px, transparent 0),
+        linear-gradient(90deg, #aaa 1px, transparent 0);
+      background-size: 10px 10px, 10px 10px, 50px 50px, 50px 50px;
+      width: 501px;
+      height: 501px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas-1"></canvas>
+  <!-- <script src="./js/index.js"></script> -->
+  <script>
+    (function() {
+
+        // 绘制移动效果动画 canvas-1
+        const canvas = document.getElementById('canvas-1');
+        const requestAnimationFrame = window.requestAnimationFrame;
+        canvas.width = 500;
+        canvas.height = 500;
+        const context = canvas.getContext('2d');
+
+        let moveDistance = 100; // 移动距离
+        let moveDirection = 1;  // 移动方向，1为向右，-1为向左
+
+        // 绘制函数
+        function draw(timestamp) {
+            // 约间隔16.67ms, 每次浏览器执行重绘就移动 1px
+            moveDistance = moveDistance + moveDirection * 1;
+            context.fillStyle = 'red';
+            // 清除画布
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            // 重绘图案
+            context.fillRect(moveDistance, 200, 50, 50);
+            // 控制距离，如果超出距离范围，就往反方向移动
+            if (moveDistance > 400 || moveDistance < 100) {
+                moveDirection = 0 - moveDirection;
+            }
+            // 重复执行移动
+            requestAnimationFrame(draw);
+        }
+
+        // 开始执行移动
+        requestAnimationFrame(draw);
+
+    })();
+  
+    // (function() {
+    //     const element = document.getElementById('canvas-1'); 
+    //     let start;
+
+    //     function step(timestamp) {
+    //         if (start === undefined)
+    //             start = timestamp;
+    //         const elapsed = timestamp - start;
+
+    //         //这里使用`Math.min()`确保元素刚好停在200px的位置。
+    //         element.style.transform = 'translateX(' + Math.min(0.1 * elapsed, 200) + 'px)';
+
+    //         if (elapsed < 2000) { // 在两秒后停止动画
+    //             window.requestAnimationFrame(step);
+    //         }
+    //     }
+
+    //     window.requestAnimationFrame(step);
+    // })()
+  </script>
+</body>
+</html>
