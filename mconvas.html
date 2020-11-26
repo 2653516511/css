@@ -20,21 +20,39 @@
         let bicaso = huaban.getContext('2d')
         console.log('bicaso', bicaso);
 
-        // rect
-        let step = 0, t = null
-        let direction = 1
-        t = setInterval(() => {
-            bicaso.clearRect(0,0,400,200)
-            // if(step <= 0) {
-            //     direction = 1
-            // } else if(step >= 350){
-            //     direction = -1
-            // }
+        // 使用requestAnimationFrame绘制的动画
+        let direction = 1, step = 0
+        function drew(timestamp) {
+            // 绘制动画效果
             if(step < 0 || step > 350) {
-                direction = 0 - direction
+                direction = 0 - direction       // direction: -1 || 1
             }
-            bicaso.fillRect(step+=direction, 30, 50, 50)
-        }, 0.001)
+
+            // 擦除矩形
+            bicaso.clearRect(0,0,400,200)
+            // 绘制矩形
+            bicaso.fillRect(step += direction, 30, 50, 50)
+            // 递归调用浏览器重绘api
+            requestAnimationFrame(drew)
+        }
+        // 首屏加载动画
+        requestAnimationFrame(drew)
+
+        // // 使用setInterval绘制的动画
+        // let step = 0, t = null
+        // let direction = 1
+        // t = setInterval(() => {
+        //     bicaso.clearRect(0,0,400,200)
+        //     // if(step <= 0) {
+        //     //     direction = 1
+        //     // } else if(step >= 350){
+        //     //     direction = -1
+        //     // }
+        //     if(step < 0 || step > 350) {
+        //         direction = 0 - direction
+        //     }
+        //     bicaso.fillRect(step+=direction, 30, 50, 50)
+        // }, 16.67)
 
         function clears() {
             clearInterval(t)
