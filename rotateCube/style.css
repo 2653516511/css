@@ -1,0 +1,57 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.content{
+    width: 400px;
+    height: 400px;
+    border: 2px solid red;
+    margin: 50px auto;
+
+    perspective: 1300px;
+    
+}
+.content ul {
+    list-style: none;
+    position: relative;
+    margin: 50px;
+
+    transform-style: preserve-3d;
+    /* 立方体的竖直中心点 */
+    transform-origin: center center 150px;
+    animation: move 2s infinite linear;
+}
+.content ul li {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    font-size: 40px;
+    color: #fff;
+    line-height: 300px;
+    text-align: center;
+}
+.content ul li:nth-of-type(1){background: red; opacity: 0.4; 
+    transform: translateX(300px) rotateY(-90deg);
+    transform-origin: left;}
+.content ul li:nth-of-type(2){background: green; opacity: 0.4;
+    transform: translateX(-300px) rotateY(90deg);
+    transform-origin: right;}
+.content ul li:nth-of-type(3){background: blue; opacity: 0.4;
+    transform: translateY(-300px) rotateX(-90deg);
+    transform-origin: bottom;}
+.content ul li:nth-of-type(4){background: yellow; opacity: 0.4;
+    transform: translateY(300px) rotateX(90deg);
+    transform-origin: top;}
+.content ul li:nth-of-type(5){background: blueviolet; opacity: 0.4;
+    transform: translateZ(300px);}
+.content ul li:nth-of-type(6){background: grey; opacity: 0.4;}
+
+/* animation */
+@keyframes move {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
