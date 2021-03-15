@@ -1,0 +1,61 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.wrap {
+    width: 500px;
+    height: 500px;
+    border: 2px solid red;
+    margin: 8px auto;
+    position: relative;
+}
+.content {
+    width: 40px;
+    height: 40px;
+    /* border: 2px solid yellowgreen; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    /* 这里使用了transform，后面在旋转时也用到了transform，会造成影响 */
+    /* transform: translate(-50%, -50%); */
+    /* display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap; */
+}
+.content p {
+    width: 12px;
+    height: 12px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    
+    animation: move 1.5s infinite linear;
+}
+.content p:nth-of-type(1){left: 0; top: 0}
+.content p:nth-of-type(2){right: 0; top: 0;}
+.content p:nth-of-type(3){left: 0; bottom: 0;}
+.content p:nth-of-type(4){right: 0; bottom: 0;}
+.content:nth-of-type(2){transform: rotate(45deg);}
+
+@keyframes move {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+.content:nth-of-type(1) p:nth-of-type(1){animation-delay: -0.1s;}
+.content:nth-of-type(2) p:nth-of-type(1){animation-delay: -0.3s;}
+.content:nth-of-type(1) p:nth-of-type(2){animation-delay: -0.5s;}
+.content:nth-of-type(2) p:nth-of-type(2){animation-delay: -0.7s;}
+.content:nth-of-type(1) p:nth-of-type(3){animation-delay: -0.9s;}
+.content:nth-of-type(2) p:nth-of-type(3){animation-delay: -1.1s;}
+.content:nth-of-type(1) p:nth-of-type(4){animation-delay: -1.3s;}
+.content:nth-of-type(2) p:nth-of-type(4){animation-delay: -1.5s;}
